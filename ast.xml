@@ -1,0 +1,159 @@
+<?xml version="1.0" ?>
+<Module>
+  <Import field="body">
+    <alias field="names">
+      <Token field="name">markovify</Token>
+      <Token field="asname">None</Token>
+    </alias>
+  </Import>
+  <With field="body">
+    <withitem field="items">
+      <Call field="context_expr">
+        <Name field="func">
+          <Token field="id">open</Token>
+          <Load field="ctx"/>
+        </Name>
+        <Constant field="args">
+          <Token field="value">data/all_progressions</Token>
+          <Token field="kind">None</Token>
+        </Constant>
+      </Call>
+      <Name field="optional_vars">
+        <Token field="id">file</Token>
+        <Store field="ctx"/>
+      </Name>
+    </withitem>
+    <Assign field="body">
+      <Name field="targets">
+        <Token field="id">text</Token>
+        <Store field="ctx"/>
+      </Name>
+      <Call field="value">
+        <Attribute field="func">
+          <Name field="value">
+            <Token field="id">file</Token>
+            <Load field="ctx"/>
+          </Name>
+          <Token field="attr">read</Token>
+          <Load field="ctx"/>
+        </Attribute>
+      </Call>
+      <Token field="type_comment">None</Token>
+    </Assign>
+    <Token field="type_comment">None</Token>
+  </With>
+  <Expr field="body">
+    <Call field="value">
+      <Name field="func">
+        <Token field="id">print</Token>
+        <Load field="ctx"/>
+      </Name>
+      <Name field="args">
+        <Token field="id">text</Token>
+        <Load field="ctx"/>
+      </Name>
+    </Call>
+  </Expr>
+  <Assign field="body">
+    <Name field="targets">
+      <Token field="id">text_model</Token>
+      <Store field="ctx"/>
+    </Name>
+    <Call field="value">
+      <Attribute field="func">
+        <Name field="value">
+          <Token field="id">markovify</Token>
+          <Load field="ctx"/>
+        </Name>
+        <Token field="attr">Text</Token>
+        <Load field="ctx"/>
+      </Attribute>
+      <Name field="args">
+        <Token field="id">text</Token>
+        <Load field="ctx"/>
+      </Name>
+    </Call>
+    <Token field="type_comment">None</Token>
+  </Assign>
+  <Assign field="body">
+    <Name field="targets">
+      <Token field="id">length</Token>
+      <Store field="ctx"/>
+    </Name>
+    <Constant field="value">
+      <Token field="value">100</Token>
+      <Token field="kind">None</Token>
+    </Constant>
+    <Token field="type_comment">None</Token>
+  </Assign>
+  <For field="body">
+    <Name field="target">
+      <Token field="id">i</Token>
+      <Store field="ctx"/>
+    </Name>
+    <Call field="iter">
+      <Name field="func">
+        <Token field="id">range</Token>
+        <Load field="ctx"/>
+      </Name>
+      <Constant field="args">
+        <Token field="value">10</Token>
+        <Token field="kind">None</Token>
+      </Constant>
+    </Call>
+    <Expr field="body">
+      <Call field="value">
+        <Name field="func">
+          <Token field="id">print</Token>
+          <Load field="ctx"/>
+        </Name>
+        <Constant field="args">
+          <Token field="value">generated chord progression</Token>
+          <Token field="kind">None</Token>
+        </Constant>
+        <BinOp field="args">
+          <Name field="left">
+            <Token field="id">i</Token>
+            <Load field="ctx"/>
+          </Name>
+          <Add field="op"/>
+          <Constant field="right">
+            <Token field="value">1</Token>
+            <Token field="kind">None</Token>
+          </Constant>
+        </BinOp>
+      </Call>
+    </Expr>
+    <Expr field="body">
+      <Call field="value">
+        <Name field="func">
+          <Token field="id">print</Token>
+          <Load field="ctx"/>
+        </Name>
+        <Call field="args">
+          <Attribute field="func">
+            <Name field="value">
+              <Token field="id">text_model</Token>
+              <Load field="ctx"/>
+            </Name>
+            <Token field="attr">make_short_sentence</Token>
+            <Load field="ctx"/>
+          </Attribute>
+          <Name field="args">
+            <Token field="id">length</Token>
+            <Load field="ctx"/>
+          </Name>
+        </Call>
+      </Call>
+    </Expr>
+    <Expr field="body">
+      <Call field="value">
+        <Name field="func">
+          <Token field="id">print</Token>
+          <Load field="ctx"/>
+        </Name>
+      </Call>
+    </Expr>
+    <Token field="type_comment">None</Token>
+  </For>
+</Module>
